@@ -51,7 +51,7 @@ check-group: $(GROUP)
 	awk --posix -f group_parser.awk $(GROUP)
 
 turnin: clean check-group
-	./files_to_submit.sh | tar -zcvf ../$(ASGN)-$(COMPILER).tgz -T -
+	./files_to_submit.sh | tar --transform "s/^./$(ASGN)-$(COMPILER)/" -zcvf ../$(ASGN)-$(COMPILER).tgz -T -
 	mv ../$(ASGN)-$(COMPILER).tgz .
 	turnin -c $(COURSE) -p $(ASGN) ./$(ASGN)-$(COMPILER).tgz
 

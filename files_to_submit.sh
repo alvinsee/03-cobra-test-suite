@@ -4,7 +4,7 @@ ASGN=03
 COMPILER=cobra
 EXT=cobra
 
-PREFIX=../$ASGN-$COMPILER
+PREFIX=.
 
 # leave the .git and .stack-work folder and temporary files
 
