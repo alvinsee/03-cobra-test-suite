@@ -25,16 +25,16 @@ test: clean
 build:
 	stack build
 
-tests/output/%.result: tests/output/%.run
+tests/output/%.result: tests/output/%.run FORCE
 	$< > $@
 
-tests/output/%.run: tests/output/%.o c-bits/main.c
+tests/output/%.run: tests/output/%.o c-bits/main.c FORCE
 	clang -g -m32 -o $@ c-bits/main.c $<
 
-tests/output/%.o: tests/output/%.s
+tests/output/%.o: tests/output/%.s FORCE
 	nasm -f $(FORMAT) -o $@ $<
 
-tests/output/%.s: tests/input/%.$(EXT)
+tests/output/%.s: tests/input/%.$(EXT) FORCE
 	stack exec -- $(COMPILER) $< > $@
 
 clean:
@@ -69,3 +69,5 @@ $(OBJS): %-o: tests/output/%.o
 $(RUNS): %-run: tests/output/%.run
 $(RESULTS): %-result: tests/output/%.result
 	cat $<
+
+FORCE:
